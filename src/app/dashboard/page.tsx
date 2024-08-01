@@ -5,44 +5,60 @@ import ChatBox from "./layout/ChatBox/ChatBox";
 import Friends from "./layout/Friends/Friends";
 import MainSideBar from "./layout/MainSideBar/MainSideBar";
 import SideBar from "./layout/SideBar/SideBar";
+import { useEffect } from "react";
+import { useGetUserByIdQuery } from "@/redux/features/user/userApi";
+import { setUser } from "@/redux/features/user/userSlice";
+import { useAppDispatch } from "@/redux/hooks";
 
 const Page: React.FC = () => {
+  const {
+    data: user,
+    error,
+    isLoading,
+  } = useGetUserByIdQuery("668160ac59fcf6642d38bd29");
+
+  console.log("user:", user);
+  console.log("error:", error);
+  console.log("isLoading:", isLoading);
+
   return (
-    <div className="flex flex-row h-screen">
-      <div
-        style={{
-          width: "6%",
-        }}
-        className="h-full"
-      >
-        <SideBar />
-      </div>
+    <div className="flex flex-row h-screen overflow-x-auto">
+      <div className="flex flex-row min-w-[1200px] w-full">
+        <div
+          style={{
+            width: "6%",
+          }}
+          className="h-full flex-shrink-0"
+        >
+          <SideBar />
+        </div>
 
-      <div
-        className="border-r border-opacity-25 border-white h-full"
-        style={{
-          width: "19%",
-        }}
-      >
-        <MainSideBar />
-      </div>
+        <div
+          className="border-r border-opacity-25 border-white h-full flex-shrink-0"
+          style={{
+            width: "22%",
+          }}
+        >
+          <MainSideBar />
+        </div>
 
-      <div
-        className="flex-grow border-l border-r border-opacity-25 border-white h-full"
-        style={{
-          width: "60%",
-        }}
-      >
-        <ChatBox />
-      </div>
+        <div
+          className="border-l border-r border-opacity-25 border-white h-full flex-shrink-0"
+          style={{
+            width: "60%",
+          }}
+        >
+          <ChatBox />
+        </div>
 
-      <div
-        className="w-110 flex-shrink-0 border-l border-opacity-25 border-white h-full"
-        style={{
-          width: "15%",
-        }}
-      >
-        <Friends />
+        <div
+          className="border-l border-opacity-25 border-white h-full flex-shrink-0"
+          style={{
+            width: "12%",
+          }}
+        >
+          <Friends />
+        </div>
       </div>
     </div>
   );

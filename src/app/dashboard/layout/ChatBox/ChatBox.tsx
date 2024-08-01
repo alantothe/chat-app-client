@@ -7,9 +7,7 @@ const ChatBox: React.FC = () => {
       <>
         <header className="h-24 relative flex-shrink-0">
           <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
-            <h1 className="text-xs sm:text-xs md:text-lg lg:text-xl xl:text-3xl 2xl:text-4xl">
-              Welcome! Select a Friend to Chat
-            </h1>
+            <h1>Welcome! Select a Friend to Chat</h1>
           </div>
           <div
             style={{ width: "95%" }}

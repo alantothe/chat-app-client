@@ -24,8 +24,11 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    setUser: (state, action: PayloadAction<UserState>) => {
+      return action.payload;
+    },
   },
 });
 
-export const { reset } = counterSlice.actions;
+export const { reset, setUser } = counterSlice.actions;
 export default counterSlice.reducer;
