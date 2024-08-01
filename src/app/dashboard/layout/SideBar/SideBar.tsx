@@ -5,10 +5,12 @@ const SideBar: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer);
   return (
     <div
-      className="h-full text-white flex flex-col items-center justify-start pt-7 "
+      className="h-full text-white flex flex-col items-center justify-start pt-6 "
       style={{ backgroundColor: "rgb(18, 18, 22)" }}
     >
-      <Avatar size="xl" url={userData.avatar || ""} />
+      {userData?.avatar ? (
+        <Avatar size="lg" url={userData.avatar || ""} />
+      ) : null}
     </div>
   );
 };

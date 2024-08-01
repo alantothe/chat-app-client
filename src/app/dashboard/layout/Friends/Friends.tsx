@@ -1,18 +1,57 @@
+import { useAppSelector } from "@/redux/hooks";
+import React, { useEffect, useState } from "react";
+import getLimitedUser from "@/api/get/getLimitedUser";
+import Avatar from "@/hooks/Avatar";
+
+interface Friend {
+  _id: string;
+  firstName: string;
+  avatar: string;
+  bio?: string;
+  email?: string;
+  backgroundImage?: string;
+}
+
 const Friends: React.FC = () => {
+  const userData = useAppSelector((state) => state.userReducer);
+  const [friendsData, setFriendsData] = useState<Friend[]>([]);
+
+  useEffect(() => {
+    if (userData && userData.friends && userData.friends.length > 0) {
+      getLimitedUser(userData.friends)
+        .then((data) => {
+          setFriendsData(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, [userData]);
+
   return (
     <div
       className="h-full text-white flex flex-col"
       style={{ backgroundColor: "rgb(20, 20, 20)" }}
     >
       <div className="w-full overflow-auto h-24 pb-4 flex items-center justify-center relative">
-        <h1>Participants</h1>
+        <h1>Participants[{userData.friends.length}]</h1>
       </div>
-      <div className="flex-grow p-5 flex flex-col overflow-hidden ">
-        <div className="flex-grow overflow-auto scrollbar scrollbar-thumb-grey-900 scrollbar-track-zinc-900">
-          <h2>Online</h2>
-
-          <h2>Offline </h2>
-        </div>
+      <div className="flex-grow p-5 flex flex-col overflow-hidden">
+        {friendsData.length > 0 ? (
+          friendsData.map((friend) => (
+            <div
+              key={friend._id}
+              className="flex items-center justify-between mb-4"
+            >
+              <div className="flex items-center">
+                <Avatar size="md" url={friend.avatar} />
+                <h3 className="ml-4">{friend.firstName}</h3>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No friends found.</p>
+        )}
       </div>
     </div>
   );

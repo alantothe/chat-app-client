@@ -2,7 +2,7 @@ import React from "react";
 import useAvatar from "./useAvatar";
 
 interface AvatarProps {
-  size: "sm" | "md" | "lg" | "xl";
+  size: "sm" | "md" | "lg" | "xl" | "xxl";
   url: string;
 }
 

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { avatarSizes } from "./constants/avatarSizes";
 
-type AvatarSize = "sm" | "md" | "lg" | "xl";
+type AvatarSize = "sm" | "md" | "lg" | "xl" | "xxl";
 
 interface UseAvatarProps {
   size: AvatarSize;
