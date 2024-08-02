@@ -1,8 +1,20 @@
-interface MainSideBarProps {
-  onOpenChat: () => void;
-}
+import { useEffect, useState } from "react";
+import getConversations from "@/api/get/getConversations";
+import type { Conversation } from "../../../../../types";
 
 const MainSideBar: React.FC = () => {
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+
+  useEffect(() => {
+    getConversations("668160ac59fcf6642d38bd29")
+      .then((data) => {
+        console.log("data:", data);
+        setConversations(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching conversations:", error);
+      });
+  }, []);
   return (
     <div
       className="h-full text-white flex-col items-center justify-center overflow-hidden"

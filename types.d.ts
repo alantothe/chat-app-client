@@ -13,3 +13,17 @@ export interface UserState {
   activeGroupConversations: string[];
   openConversation: string | null;
 }
+
+export interface Conversation {
+  _id: string | null;
+  members: string[];
+  lastMessage: string | null;
+  lastMessageFrom: string | null;
+  unreadCount: {
+    [key: string]: number;
+  };
+}
+
+interface MainSideBarProps {
+  onOpenChat: () => void;
+}

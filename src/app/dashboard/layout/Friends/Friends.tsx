@@ -6,6 +6,7 @@ import Avatar from "@/hooks/Avatar";
 interface Friend {
   _id: string;
   firstName: string;
+  lastName: string;
   avatar: string;
   bio?: string;
   email?: string;
@@ -45,7 +46,10 @@ const Friends: React.FC = () => {
             >
               <div className="flex items-center">
                 <Avatar size="md" url={friend.avatar} />
-                <h3 className="ml-4">{friend.firstName}</h3>
+                <div className="flex ">
+                  <h3 className="ml-2 text-xs">{friend.firstName}</h3>
+                  <h3 className="ml-2 text-xs">{friend.lastName}</h3>
+                </div>
               </div>
             </div>
           ))
