@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import getConversations from "@/api/get/getConversations";
 import type { Conversation } from "../../../../../types";
+import Avatar from "@/hooks/Avatar";
 
 const MainSideBar: React.FC = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
+
+  // truncate string
+  const truncate = (str: string, num: number) => {
+    if (str.length <= num) {
+      return str;
+    }
+    return str.slice(0, num) + " ...";
+  };
 
   useEffect(() => {
     getConversations("668160ac59fcf6642d38bd29")
@@ -43,6 +52,33 @@ const MainSideBar: React.FC = () => {
             Group Message
           </button>
         </div>
+      </div>
+      <div className="flex-col">
+        {conversations
+          ? conversations.map((conversation) => (
+              <div className={`flex mx-6 my-4 pb-3 `}>
+                <Avatar
+                  size="md"
+                  url={conversation.detailedLastMessageFrom.avatar}
+                />
+                <div className="flex-col ml-3 mt-1">
+                  <div className="flex ml-3 mt-1">
+                    <h1 className="text-xl">
+                      {conversation.detailedLastMessageFrom.firstName}
+                    </h1>
+                    {""}
+                    <h1 className="text-xl">
+                      {conversation.detailedLastMessageFrom.lastName}
+                    </h1>
+                  </div>
+
+                  <p className=" text-sm text-zinc-700">
+                    {truncate(conversation.lastMessage || "", 23)}
+                  </p>
+                </div>
+              </div>
+            ))
+          : null}
       </div>
     </div>
   );

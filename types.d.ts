@@ -15,6 +15,14 @@ export interface UserState {
 }
 
 export interface Conversation {
+  detailedLastMessageFrom: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    avatar: string;
+    id: string;
+  };
+
   _id: string | null;
   members: string[];
   lastMessage: string | null;
