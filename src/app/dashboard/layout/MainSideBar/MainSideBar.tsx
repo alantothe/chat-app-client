@@ -10,6 +10,12 @@ const MainSideBar: React.FC = () => {
   const [groupConversations, setGroupConversations] = useState<Conversation[]>(
     []
   );
+  const [search, setSearch] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    console.log("search:", e.target.value);
+  };
 
   useEffect(() => {
     if (display === "Direct Messages") {
@@ -33,14 +39,6 @@ const MainSideBar: React.FC = () => {
     }
   }, [display]);
 
-  // Truncate string
-  const truncate = (str: string, num: number) => {
-    if (str.length <= num) {
-      return str;
-    }
-    return str.slice(0, num) + " ...";
-  };
-
   const renderConversations = (conversations: Conversation[]) => {
     return conversations.map((conversation) => (
       <div key={conversation._id} className="flex mx-6 my-4 pb-3">
@@ -63,6 +61,14 @@ const MainSideBar: React.FC = () => {
     ));
   };
 
+  // Truncate string
+  const truncate = (str: string, num: number) => {
+    if (str.length <= num) {
+      return str;
+    }
+    return str.slice(0, num) + " ...";
+  };
+
   return (
     <div
       className="h-full text-white flex-col items-center justify-center overflow-hidden"
@@ -72,6 +78,8 @@ const MainSideBar: React.FC = () => {
         <input
           className="bg-zinc-800 placeholder-zinc-600 h-12 w-11/12 rounded outline-none pl-2 placeholder:text-xs"
           placeholder="Search..."
+          value={search}
+          onChange={handleChange}
         ></input>
         <div className="absolute bottom-0 left-0 right-0 w-11/12 mx-auto border-b border-white border-opacity-20"></div>
       </div>
