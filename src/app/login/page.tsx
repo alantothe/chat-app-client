@@ -12,7 +12,7 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     console.log("email:", email);
     console.log("password :", password);
@@ -38,6 +38,8 @@ export default function Login() {
               className="text-white mb-5 font-mono text-sm p-1 outline-none bg-inherit border-2 border-[#0E2E70] rounded-md"
               id="email"
               name="email"
+              type="email"
+              onChange={handleEmailChange}
             />
             <label className="text-[#00CFC8] font-mono font-bold text-sm">
               Enter your password*
@@ -47,11 +49,13 @@ export default function Login() {
               type="password"
               id="password"
               name="password"
+              onChange={handlePasswordChange}
             />
             <button
               type="submit"
               className="border-2 border-white cursor-pointer hover:border-green-500 hover:text-green-500 mt-2 text-white opacity-50 rounded px-5
                           py-2 w-full font-bold"
+              onClick={handleSubmit}
             >
               Login
             </button>
