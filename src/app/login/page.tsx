@@ -1,8 +1,13 @@
+"use client";
+
 import { useState } from "react";
+import { useLoginUserMutation } from "../../redux/features/user/userApi";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginUser, { isLoading, isSuccess, data, error }] =
+    useLoginUserMutation();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -16,6 +21,7 @@ export default function Login() {
     e.preventDefault();
     console.log("email:", email);
     console.log("password :", password);
+    loginUser({ email, password });
   };
 
   return (

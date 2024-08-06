@@ -32,6 +32,10 @@ export interface Conversation {
   };
 }
 
+export interface LoginResponse {
+  token: string | null;
+}
+
 interface MainSideBarProps {
   onOpenChat: () => void;
 }

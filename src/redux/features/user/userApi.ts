@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { UserState } from "../../../../types";
+import type { UserState, LoginResponse } from "../../../../types";
 import { setUser } from "./userSlice";
-//debuging log
+import { setToken } from "./tokenSlice";
+
+// Debugging log
 console.log(
   "NEXT_PUBLIC_CHAT_API_SERVER:",
   process.env.NEXT_PUBLIC_CHAT_API_SERVER
@@ -24,9 +26,27 @@ const userApi = createApi({
         }
       },
     }),
-    // add more end points here
+    loginUser: builder.mutation<
+      LoginResponse,
+      { email: string; password: string }
+    >({
+      query: ({ email, password }) => ({
+        url: "user/login",
+        method: "POST",
+        body: { email, password },
+      }),
+      async onQueryStarted({ email, password }, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log("data:", data);
+          dispatch(setToken(data));
+        } catch (error) {
+          console.error("Failed to login user:", error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetUserByIdQuery } = userApi;
+export const { useGetUserByIdQuery, useLoginUserMutation } = userApi;
 export default userApi;
