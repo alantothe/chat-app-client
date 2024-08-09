@@ -1,13 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginUserMutation } from "../../redux/features/user/userApi";
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from 'next/navigation'
+
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginUser, { isLoading, isSuccess, data, error }] =
     useLoginUserMutation();
+  const token = useAppSelector((state) => state.tokenReducer);
+  const router = useRouter()
+    
+
+    
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -21,8 +30,16 @@ export default function Login() {
     e.preventDefault();
     console.log("email:", email);
     console.log("password :", password);
-    loginUser({ email, password });
+    loginUser({ email, password })
   };
+
+  useEffect(() => {
+    if(token.token)
+    {
+      console.log("token:", token.token)
+      router.push('/dashboard')
+    }
+  }, [token]);
 
   return (
     <main>

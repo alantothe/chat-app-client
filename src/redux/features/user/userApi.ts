@@ -42,7 +42,7 @@ const userApi = createApi({
           dispatch(setToken(data));
         } catch (error) {
           console.error("Failed to login user:", error);
-        }
+     }
       },
     }),
   }),
