@@ -29,7 +29,6 @@ const MainSideBar: React.FC = () => {
     if (display === "Direct Messages") {
       getConversations(userData._id || "")
         .then((data) => {
-          console.log("data:", data);
           setConversations(data);
         })
         .catch((error) => {
@@ -38,7 +37,7 @@ const MainSideBar: React.FC = () => {
     } else if (display === "Group Messages") {
       getConversationsGroup(userData._id || "")
         .then((data) => {
-          console.log("group data:", data);
+
           setGroupConversations(data);
         })
         .catch((error) => {
