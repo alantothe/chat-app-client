@@ -8,6 +8,8 @@ import {UserState} from "../../../../../types";
 
 
 const MainSideBar: React.FC = () => {
+
+  //fix userData and display timing issue
   const [display, setDisplay] = useState<string>("Direct Messages");
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [groupConversations, setGroupConversations] = useState<Conversation[]>(
@@ -43,7 +45,7 @@ const MainSideBar: React.FC = () => {
           console.error("Error fetching group conversations:", error);
         });
     }
-  }, [display,userData]);
+  }, [display, userData]);
 
   const renderConversations = (conversations: Conversation[]) => {
     return conversations.map((conversation) => (
