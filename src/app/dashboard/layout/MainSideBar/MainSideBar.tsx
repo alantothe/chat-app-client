@@ -3,6 +3,9 @@ import getConversations from "@/api/get/getConversations";
 import getConversationsGroup from "@/api/get/getGroupConversations";
 import type { Conversation } from "../../../../../types";
 import Avatar from "@/hooks/Avatar";
+import { useAppSelector } from "@/redux/hooks";
+import {UserState} from "../../../../../types";
+
 
 const MainSideBar: React.FC = () => {
   const [display, setDisplay] = useState<string>("Direct Messages");
@@ -12,6 +15,9 @@ const MainSideBar: React.FC = () => {
   );
   const [search, setSearch] = useState("");
 
+  const userData = useAppSelector((state) => state.userReducer)
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     console.log("search:", e.target.value);
@@ -19,7 +25,7 @@ const MainSideBar: React.FC = () => {
 
   useEffect(() => {
     if (display === "Direct Messages") {
-      getConversations("668160ac59fcf6642d38bd29")
+      getConversations(userData._id || "")
         .then((data) => {
           console.log("data:", data);
           setConversations(data);
@@ -28,7 +34,7 @@ const MainSideBar: React.FC = () => {
           console.error("Error fetching conversations:", error);
         });
     } else if (display === "Group Messages") {
-      getConversationsGroup("668160ac59fcf6642d38bd29")
+      getConversationsGroup(userData._id || "")
         .then((data) => {
           console.log("group data:", data);
           setGroupConversations(data);
@@ -37,7 +43,7 @@ const MainSideBar: React.FC = () => {
           console.error("Error fetching group conversations:", error);
         });
     }
-  }, [display]);
+  }, [display,userData]);
 
   const renderConversations = (conversations: Conversation[]) => {
     return conversations.map((conversation) => (

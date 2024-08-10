@@ -14,6 +14,12 @@ export interface UserState {
   openConversation: string | null;
 }
 
+export interface Token {
+  avatar: string;
+  exp: number;
+  iat: number;
+  _id: string;
+}
 export interface Conversation {
   detailedLastMessageFrom: {
     _id: string;

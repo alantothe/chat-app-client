@@ -3,6 +3,8 @@ import Avatar from "@/hooks/Avatar";
 
 const SideBar: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer);
+
+  
   return (
     <div
       className="h-full text-white flex flex-col items-center justify-start pt-6 "

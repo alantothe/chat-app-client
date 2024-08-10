@@ -5,21 +5,30 @@ import ChatBox from "./layout/ChatBox/ChatBox";
 import Friends from "./layout/Friends/Friends";
 import MainSideBar from "./layout/MainSideBar/MainSideBar";
 import SideBar from "./layout/SideBar/SideBar";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useGetUserByIdQuery } from "@/redux/features/user/userApi";
-import { setUser } from "@/redux/features/user/userSlice";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from 'next/navigation'
+import { Token } from "../../../types";
+import { jwtDecode } from 'jwt-decode';
 
 const Page: React.FC = () => {
-  const {
-    data: user,
-    error,
-    isLoading,
-  } = useGetUserByIdQuery("668160ac59fcf6642d38bd29");
-
-  console.log("user:", user);
-  console.log("error:", error);
-  console.log("isLoading:", isLoading);
+  const router = useRouter()
+  const [id , setId] = useState<string>('')
+  const token = useAppSelector((state) => state.tokenReducer);
+  const { data: user, error, isLoading } = useGetUserByIdQuery(id);
+ 
+  useEffect(() => {
+    if(!token.token)
+    {
+      router.push('/login')
+    }
+    else if(token.token)
+    {
+      const decoded = jwtDecode<Token>(token.token);
+      setId(decoded._id)
+    }
+  }, [token]);
 
   return (
     <div className="flex flex-row h-screen overflow-x-auto">
