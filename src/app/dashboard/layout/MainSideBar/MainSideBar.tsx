@@ -8,23 +8,17 @@ import {UserState} from "../../../../../types";
 
 
 const MainSideBar: React.FC = () => {
-
-  //fix userData and display timing issue
   const [display, setDisplay] = useState<string>("Direct Messages");
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [groupConversations, setGroupConversations] = useState<Conversation[]>(
     []
   );
   const [search, setSearch] = useState("");
-
   const userData = useAppSelector((state) => state.userReducer)
-
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     console.log("search:", e.target.value);
   };
-
   useEffect(() => {
     if (display === "Direct Messages") {
       getConversations(userData._id || "")
@@ -45,7 +39,6 @@ const MainSideBar: React.FC = () => {
         });
     }
   }, [display, userData]);
-
   const renderConversations = (conversations: Conversation[]) => {
     return conversations.map((conversation) => (
       <div key={conversation._id} className="flex mx-6 my-4 pb-3">
@@ -67,7 +60,6 @@ const MainSideBar: React.FC = () => {
       </div>
     ));
   };
-
   // Truncate string
   const truncate = (str: string, num: number) => {
     if (str.length <= num) {
@@ -75,7 +67,6 @@ const MainSideBar: React.FC = () => {
     }
     return str.slice(0, num) + " ...";
   };
-
   return (
     <div
       className="h-full text-white flex-col items-center justify-center overflow-hidden"
