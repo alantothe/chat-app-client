@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import getConversations from "@/api/get/getConversations";
 import getConversationsGroup from "@/api/get/getGroupConversations";
 import type { Conversation, UserState } from "../../../../../types";
@@ -12,12 +12,13 @@ interface Chat {
 }
 
 const MainSideBar: React.FC = () => {
-  const [openChat, setOpenChat] = useState<Chat>({ conversationId: "", _id: "" });
+  const [openChat, setOpenChat] = useState<Chat>({ conversationId: null, _id: null });
   const [display, setDisplay] = useState<string>("Direct Messages");
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [groupConversations, setGroupConversations] = useState<Conversation[]>(
     []
   );
+  const [openChatMutation] = useOpenChatMutation();
 
   const [search, setSearch] = useState("");
   const userData = useAppSelector((state) => state.userReducer)
@@ -52,6 +53,12 @@ const MainSideBar: React.FC = () => {
         });
     }
   }, [display, userData]);
+
+  useEffect(() => {
+    if (openChat) {
+      openChatMutation(openChat); 
+    }
+  }, [openChat, openChatMutation]);
 
 
   const renderConversations = (conversations: Conversation[]) => {

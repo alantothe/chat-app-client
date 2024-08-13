@@ -47,3 +47,8 @@ export interface onOpenChatResponse{
 interface MainSideBarProps {
   onOpenChat: () => void;
 }
+
+export interface Chat {
+  conversationId: string | null | "";
+  _id: string | null | "";
+}

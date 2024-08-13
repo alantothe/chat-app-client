@@ -27,8 +27,11 @@ export const counterSlice = createSlice({
     setUser: (state, action: PayloadAction<UserState>) => {
       return action.payload;
     },
+    changeOpenChat: (state, action: PayloadAction<string>) => {
+      state.openConversation = action.payload;
+    }
   },
 });
 
-export const { reset, setUser } = counterSlice.actions;
+export const { reset, setUser, changeOpenChat } = counterSlice.actions;
 export default counterSlice.reducer;

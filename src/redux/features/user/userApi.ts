@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { UserState, LoginResponse, onOpenChatResponse } from "../../../../types";
-import { setUser } from "./userSlice";
+import type { UserState, LoginResponse, onOpenChatResponse, Chat } from "../../../../types";
+import { setUser, changeOpenChat } from "./userSlice";
 import { setToken } from "./tokenSlice";
 
 // Debugging log
@@ -27,20 +27,23 @@ const userApi = createApi({
       },
     }),
 
-    openChat: builder.mutation<onOpenChatResponse, {conversationId : string, _id: string}>({
-      query: ({conversationId, _id}) => ({
+    openChat: builder.mutation<onOpenChatResponse, {conversationId: string, _id: string}>({
+      query: ({ conversationId, _id }) => ({
         url: "user/open-chat",
-        method: "POST",
-        body: {conversationId, _id},
+        method: "PATCH",
+        body: { conversationId, _id },
       }),
-      async onQueryStarted({conversationId, _id}, {dispatch, queryFulfilled}) {
+      async onQueryStarted({ conversationId, _id }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("data:", data);
+          console.log("data:", data.data);
+          dispatch(changeOpenChat(data.data as string));
         } catch (error) {
-          console.error("Failed to open chat:", error);
+          console.error("Failed to open chat:", error, { conversationId, _id });
         }
-      }}),
+      },
+    }),
+
 
     loginUser: builder.mutation<
       LoginResponse,
