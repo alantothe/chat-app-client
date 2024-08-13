@@ -7,8 +7,8 @@ import { useAppSelector } from "@/redux/hooks";
 import { useOpenChatMutation } from "@/redux/features/user/userApi";
 
 interface Chat {
-  conversationId: string | null | "";
-  _id: string | null | "";
+  conversationId: string | null;
+  _id: string | null;
 }
 
 const MainSideBar: React.FC = () => {
@@ -24,13 +24,11 @@ const MainSideBar: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    console.log("search:", e.target.value);
   };
   
   const handleOnClick = (chat: Chat
   ) => {
     setOpenChat(chat);
-    console.log("chat:", chat);
   }
 
   useEffect(() => {
@@ -55,11 +53,13 @@ const MainSideBar: React.FC = () => {
   }, [display, userData]);
 
   useEffect(() => {
-    if (openChat) {
-      openChatMutation(openChat); 
+    if (openChat.conversationId && openChat._id) {
+        openChatMutation({
+            conversationId: openChat.conversationId,
+            _id: openChat._id,
+        } as { conversationId: string; _id: string });
     }
-  }, [openChat, openChatMutation]);
-
+}, [openChat, openChatMutation]);
 
   const renderConversations = (conversations: Conversation[]) => {
     return conversations.map((conversation) => (

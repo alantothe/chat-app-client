@@ -3,12 +3,6 @@ import type { UserState, LoginResponse, onOpenChatResponse, Chat } from "../../.
 import { setUser, changeOpenChat } from "./userSlice";
 import { setToken } from "./tokenSlice";
 
-// Debugging log
-console.log(
-  "NEXT_PUBLIC_CHAT_API_SERVER:",
-  process.env.NEXT_PUBLIC_CHAT_API_SERVER
-);
-
 const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
@@ -36,7 +30,6 @@ const userApi = createApi({
       async onQueryStarted({ conversationId, _id }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("data:", data.data);
           dispatch(changeOpenChat(data.data as string));
         } catch (error) {
           console.error("Failed to open chat:", error, { conversationId, _id });
@@ -57,7 +50,6 @@ const userApi = createApi({
       async onQueryStarted({ email, password }, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          console.log("data:", data);
           dispatch(setToken(data));
         } catch (error) {
           console.error("Failed to login user:", error);

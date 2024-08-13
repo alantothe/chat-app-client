@@ -29,15 +29,12 @@ export default function Login() {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    console.log("email:", email);
-    console.log("password :", password);
     loginUser({ email, password })
   };
 
   useEffect(() => {
     if(token.token)
     {
-      console.log("token:", token.token)
       router.push('/dashboard')
     }
   }, [token]);

@@ -74,22 +74,4 @@ const Page: React.FC = () => {
 };
 
 export default Page;
-// import { useGetUserByIdQuery } from "../../redux/features/user/userApi";
 
-// const UserComponent: React.FC<{ _id: string }> = ({ _id }) => {
-//   const { data: user, error, isLoading } = useGetUserByIdQuery(_id);
-//   console.log("user:", user);
-
-//   if (isLoading) return <div>loading</div>;
-//   if (error) {
-//     console.error("Error loading user:", error);
-//     return <div>Error loading user</div>;
-//   }
-//   return (
-//     <div>
-//       {user?.firstName}
-//       {user?.lastName}
-//       {user?.avatar && <img src={user?.avatar} alt="avatar" />}
-//     </div>
-//   );
-// };
