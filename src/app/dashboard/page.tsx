@@ -48,7 +48,7 @@ const Page: React.FC = () => {
             width: "22%",
           }}
         >
-          <MainSideBar />
+          <MainSideBar  />
         </div>
 
         <div

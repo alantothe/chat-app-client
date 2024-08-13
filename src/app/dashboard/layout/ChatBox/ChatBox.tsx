@@ -15,7 +15,9 @@ const ChatBox: React.FC = () => {
           ></div>
         </header>
 
-        <div className="overflow-y-auto flex-grow flex items-center justify-center"></div>
+        <div className="overflow-y-auto flex-grow flex items-center justify-center">
+          <h2 className="text-3xl">Center</h2>
+        </div>
       </>
 
       {/* Chat Input Below */}

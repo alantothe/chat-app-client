@@ -1,24 +1,37 @@
 import { useEffect, useState } from "react";
 import getConversations from "@/api/get/getConversations";
 import getConversationsGroup from "@/api/get/getGroupConversations";
-import type { Conversation } from "../../../../../types";
+import type { Conversation, UserState } from "../../../../../types";
 import Avatar from "@/hooks/Avatar";
 import { useAppSelector } from "@/redux/hooks";
-import {UserState} from "../../../../../types";
+import { useOpenChatMutation } from "@/redux/features/user/userApi";
 
+interface Chat {
+  conversationId: string | null | "";
+  _id: string | null | "";
+}
 
 const MainSideBar: React.FC = () => {
+  const [openChat, setOpenChat] = useState<Chat>({ conversationId: "", _id: "" });
   const [display, setDisplay] = useState<string>("Direct Messages");
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [groupConversations, setGroupConversations] = useState<Conversation[]>(
     []
   );
+
   const [search, setSearch] = useState("");
   const userData = useAppSelector((state) => state.userReducer)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
     console.log("search:", e.target.value);
   };
+  
+  const handleOnClick = (chat: Chat
+  ) => {
+    setOpenChat(chat);
+    console.log("chat:", chat);
+  }
+
   useEffect(() => {
     if (display === "Direct Messages") {
       getConversations(userData._id || "")
@@ -39,9 +52,15 @@ const MainSideBar: React.FC = () => {
         });
     }
   }, [display, userData]);
+
+
   const renderConversations = (conversations: Conversation[]) => {
     return conversations.map((conversation) => (
-      <div key={conversation._id} className="flex mx-6 my-4 pb-3">
+      <div
+      key={conversation._id}
+      onClick={() => handleOnClick({ conversationId: conversation._id, _id: userData._id || null })}
+      className="flex mx-6 my-4 pb-3"
+    >
         <Avatar size="md" url={conversation.detailedLastMessageFrom.avatar} />
         <div className="flex-col ml-3 mt-1">
           <div className="flex ml-3 mt-1">

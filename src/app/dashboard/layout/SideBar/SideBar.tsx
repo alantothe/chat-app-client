@@ -11,7 +11,7 @@ const SideBar: React.FC = () => {
       style={{ backgroundColor: "rgb(18, 18, 22)" }}
     >
       {userData?.avatar ? (
-        <Avatar size="lg" url={userData.avatar || ""} />
+        <Avatar size="md" url={userData.avatar || ""} />
       ) : null}
     </div>
   );

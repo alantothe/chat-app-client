@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { UserState, LoginResponse } from "../../../../types";
+import type { UserState, LoginResponse, onOpenChatResponse } from "../../../../types";
 import { setUser } from "./userSlice";
 import { setToken } from "./tokenSlice";
 
@@ -26,9 +26,25 @@ const userApi = createApi({
         }
       },
     }),
+
+    openChat: builder.mutation<onOpenChatResponse, {conversationId : string, _id: string}>({
+      query: ({conversationId, _id}) => ({
+        url: "user/open-chat",
+        method: "POST",
+        body: {conversationId, _id},
+      }),
+      async onQueryStarted({conversationId, _id}, {dispatch, queryFulfilled}) {
+        try {
+          const { data } = await queryFulfilled;
+          console.log("data:", data);
+        } catch (error) {
+          console.error("Failed to open chat:", error);
+        }
+      }}),
+
     loginUser: builder.mutation<
       LoginResponse,
-      { email: string; password: string }
+      {email: string; password: string}
     >({
       query: ({ email, password }) => ({
         url: "user/login",
@@ -48,5 +64,5 @@ const userApi = createApi({
   }),
 });
 
-export const { useGetUserByIdQuery, useLoginUserMutation } = userApi;
+export const { useGetUserByIdQuery, useLoginUserMutation, useOpenChatMutation } = userApi;
 export default userApi;

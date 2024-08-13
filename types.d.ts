@@ -37,11 +37,13 @@ export interface Conversation {
     [key: string]: number;
   };
 }
-
 export interface LoginResponse {
   token: string | null;
 }
-
+export interface onOpenChatResponse{
+  message: string | null
+  data: string | null
+}
 interface MainSideBarProps {
   onOpenChat: () => void;
 }
