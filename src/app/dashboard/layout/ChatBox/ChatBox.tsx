@@ -5,7 +5,8 @@ import { useAppSelector } from "@/redux/hooks";
 const ChatBox: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer)
 
-  console.log("userData:", userData);
+  console.log("userData:", userData.openConversation);
+  
   return (
     <div
       className="h-full text-white flex flex-col"
