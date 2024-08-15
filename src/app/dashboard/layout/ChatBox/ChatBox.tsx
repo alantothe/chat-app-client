@@ -1,11 +1,52 @@
 import { useAppSelector } from "@/redux/hooks";
+import getMessages from "@/api/get/getMessages";
+import React, { useEffect, useState } from "react";
+
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  id: string;
+}
 
 
+interface Message {
+  _id: string;
+  conversationId: string;
+  senderId: string;
+  message: string;
+  img: string[];
+  timestamp: string; 
+  __v: number;
+}
+
+
+interface Response {
+  members: User[] | null;
+  messages: Message[] | null;
+}
 
 const ChatBox: React.FC = () => {
-  const userData = useAppSelector((state) => state.userReducer)
 
-  console.log("userData:", userData.openConversation);
+  const userData = useAppSelector((state) => state.userReducer)
+  const [data, setData] = useState<Response | null>(null);
+
+  const { _id, openConversation } = userData;
+
+  useEffect(() => {
+    if (openConversation) {
+      getMessages(_id, openConversation).then((data: Response) => {
+          console.log(data);
+          setData(data);
+        })
+        .catch((error: any) => {
+          console.error(error);
+        });
+    }
+  }, [openConversation]);
+
+
   
   return (
     <div

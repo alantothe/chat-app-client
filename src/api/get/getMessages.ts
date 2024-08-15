@@ -1,9 +1,9 @@
 import apiConfig from "../apiconfig";
 
-export default async function getMessages(_id: string, conversationId: string) {
+export default async function getMessages(_id: string | null, conversationId: string | null) {
   const { baseURL } = apiConfig;
   try {
-    const response = await fetch(`${baseURL}/message/get/${_id}/${conversationId}`, {
+    const response = await fetch(`${baseURL}/message/get/${conversationId}/${_id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
