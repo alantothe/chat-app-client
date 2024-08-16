@@ -5,9 +5,6 @@ import { useLoginUserMutation } from "../../redux/features/user/userApi";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from 'next/navigation'
 
-
-
-
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,23 +12,16 @@ export default function Login() {
     useLoginUserMutation();
   const token = useAppSelector((state) => state.tokenReducer);
   const router = useRouter()
-    
-
-    
-
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
-
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
-
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     loginUser({ email, password })
   };
-
   useEffect(() => {
     if(token.token)
     {
