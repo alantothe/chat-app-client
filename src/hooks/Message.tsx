@@ -16,12 +16,9 @@ interface MessageProps {
     timestamp: string; 
   };
 }
-
 const Message: React.FC<MessageProps> = ({ message }) => {
-  
-
   return (
-    <div className="flex items-center mb-4">
+    <div className="flex  mb-4">
       <Avatar size="md" url={message.senderId.avatar} />
       <div className="ml-4">
         <h1 className="text-lg">{`${message.senderId.firstName} ${message.senderId.lastName}`}</h1>
@@ -36,7 +33,6 @@ const Message: React.FC<MessageProps> = ({ message }) => {
         </div>
       </div>
     </div>
-
   )
 };
 

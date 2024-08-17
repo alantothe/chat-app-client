@@ -38,9 +38,7 @@ interface Response {
 const ChatBox: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer);
   const [data, setData] = useState<Response | null>(null);
-
   const { _id, openConversation } = userData;
-
   useEffect(() => {
     if (openConversation) {
       getMessages(_id, openConversation)
@@ -53,7 +51,6 @@ const ChatBox: React.FC = () => {
         });
     }
   }, [openConversation]);
-
   const renderHeader = () => (
     <header className="h-24 relative flex-shrink-0">
       <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
@@ -65,11 +62,10 @@ const ChatBox: React.FC = () => {
       ></div>
     </header>
   );
-
   const renderMembersHeader = (members: User[] | null) => (
-    <div className="flex items-center overflow-hidden p-4">
+    <div className="flex items-center  p-4">
       {members ? (
-        <header className="h-24 overflow-hidden  relative flex-shrink-0">
+        <header className="h-24 overflow-hidden relative flex-shrink-0">
           {members.map((member) => (
             <div key={member._id} className="flex items-center mb-4">
               <Avatar size="md" url={member.avatar} />
@@ -97,14 +93,20 @@ const ChatBox: React.FC = () => {
       )}
     </div>
   );
-
   return (
     <div className="h-full text-white flex flex-col" style={{ backgroundColor: "rgb(20, 20, 20)" }}>
       {data && data.members ? renderMembersHeader(data.members) : renderHeader()}
       {data ? (
         <>
           {renderMessages(data.messages)}
-          <footer className="flex w-full px-5 justify-center flex-shrink-0 mb-5">
+          
+        </>
+      ) : (
+        <div className="flex-grow flex items-center justify-center">
+          <h2 className="text-3xl">Center</h2>
+        </div>
+      )}
+      <footer className="flex w-full px-5 justify-center flex-shrink-0 mb-5">
             <div className="relative w-full px-3 h-12">
               <input
                 name="message"
@@ -116,12 +118,6 @@ const ChatBox: React.FC = () => {
               <div className="absolute inset-y-0 left-6 flex items-center"></div>
             </div>
           </footer>
-        </>
-      ) : (
-        <div className="flex-grow flex items-center justify-center">
-          <h2 className="text-3xl">Center</h2>
-        </div>
-      )}
     </div>
   );
 };
