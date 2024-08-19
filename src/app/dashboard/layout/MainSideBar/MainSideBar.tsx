@@ -32,6 +32,10 @@ const MainSideBar: React.FC = () => {
   }
 
   useEffect(() => {
+
+  }, [])
+
+  useEffect(() => {
     if (display === "Direct Messages") {
       getConversations(userData._id || "")
         .then((data) => {
