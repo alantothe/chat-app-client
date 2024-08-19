@@ -6,11 +6,15 @@ interface SendMessageResponse {
     success: boolean;
     message: string;
   }
- 
+
+  interface MessageBody {
+    recipientIds: string[] | null
+    senderId: string | null
+    message: string
+    img:string[] | null
+  }
 export default async function sendMessage(
-    recipientIds: string[] | null,
-    senderId: string | null,
-    img: string | string[] | null
+    messageBody: MessageBody
   ): Promise<SendMessageResponse> {
     const { baseURL } = apiConfig;
     try {
@@ -19,11 +23,7 @@ export default async function sendMessage(
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          recipientIds,
-          senderId,
-          img,
-        }),
+        body: JSON.stringify(messageBody),
       });
   
       if (!response.ok) {

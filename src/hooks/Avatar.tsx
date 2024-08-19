@@ -3,7 +3,7 @@ import useAvatar from "./useAvatar";
 
 interface AvatarProps {
   size: "sm" | "md" | "lg" | "xl" | "xxl";
-  url: string;
+  url: string ;
 }
 
 const Avatar: React.FC<AvatarProps> = ({ size, url }) => {
