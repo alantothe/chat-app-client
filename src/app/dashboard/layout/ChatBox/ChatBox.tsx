@@ -37,11 +37,19 @@ const ChatBox: React.FC = () => {
   const [data, setData] = useState<Response | null>(null);
   const [messageBody, setMessageBody] = useState<MessageBody>({
     recipientIds: null,
-    senderId: userData?._id,
+    senderId: null,
     message: '',
     img: null
   });
-
+  useEffect(() => {
+    if (userData){
+      setMessageBody((prevMessage) => ({
+        ...prevMessage,
+        senderId : userData._id
+  
+      }))
+    }
+   }, [userData])
  
   useEffect(() => {
     if (openConversation) {
@@ -64,6 +72,7 @@ const ChatBox: React.FC = () => {
     }
   }, [openConversation]);
 
+ 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessageBody(prevMessage => ({
       ...prevMessage,                    // Spread the previous message state to retain other values

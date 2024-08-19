@@ -22,16 +22,6 @@ interface User {
   avatar: string;
   id: string;
 }
-
-// interface MessageProps {
-//   _id: string | null
-//   conversationId: string | null
-//   senderId: User
-//   message: string | null
-//   img: string[] 
-//   timestamp: string; 
-//   __v: number;
-// }
 const Message: React.FC<MessageProps> = ({ message }) => {
   // true map, false = []
   const images = Array.isArray(message.img) ? message.img : message.img ? [message.img] : [];
