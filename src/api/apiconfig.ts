@@ -1,9 +1,11 @@
 const baseURL = process.env.NEXT_PUBLIC_CHAT_API_SERVER;
-const local = "http://localhost:4001/api"
+const socketURL = process.env.SOCKET_URL
+const localURL = process.env.LOCAL_SOCKET
 
 const apiConfig = {
   baseURL: baseURL,
-  local: local
+  socketURL: socketURL,
+  localURL: localURL
 };
 
 export default apiConfig;

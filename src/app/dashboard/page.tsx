@@ -4,12 +4,14 @@ import ChatBox from "./layout/ChatBox/ChatBox";
 import Friends from "./layout/Friends/Friends";
 import MainSideBar from "./layout/MainSideBar/MainSideBar";
 import SideBar from "./layout/SideBar/SideBar";
+import socket from "@/web/socket";
 import { useEffect,useState } from "react";
 import { useGetUserByIdQuery } from "@/redux/features/user/userApi";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from 'next/navigation'
 import { Token } from "../../../types";
 import { jwtDecode } from 'jwt-decode';
+
 
 const Page: React.FC = () => {
   const router = useRouter()
@@ -27,6 +29,7 @@ const Page: React.FC = () => {
     {
       const decoded = jwtDecode<Token>(token.token);
       setId(decoded._id)
+      socket.emit( "set-user", decoded._id)
     }
   }, [token]);
   return (
