@@ -1,10 +1,10 @@
-import { CSSProperties, useEffect, useState } from "react";
-import getConversations from "@/api/get/getConversations";
-import getConversationsGroup from "@/api/get/getGroupConversations";
 import type { Conversation, Chat } from "../../../../../types";
-import Avatar from "@/hooks/Avatar";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { useOpenChatMutation } from "@/redux/features/user/userApi";
+import Avatar from "@/hooks/Avatar";
+import getConversations from "@/api/get/getConversations";
+import getConversationsGroup from "@/api/get/getGroupConversations";
 import SyncLoader from "react-spinners/SyncLoader";
 
 const MainSideBar: React.FC = () => {
@@ -13,15 +13,13 @@ const MainSideBar: React.FC = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [groupConversations, setGroupConversations] = useState<Conversation[]>(
     []
-  );
+  )
   const [openChatMutation] = useOpenChatMutation();
-
   const [search, setSearch] = useState("");
   const userData = useAppSelector((state) => state.userReducer)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-  
   const handleOnClick = (chat: Chat
   ) => {
     setOpenChat(chat);
