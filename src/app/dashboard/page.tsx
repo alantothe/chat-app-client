@@ -1,5 +1,4 @@
 "use client";
-//dashboard
 import React from "react";
 import ChatBox from "./layout/ChatBox/ChatBox";
 import Friends from "./layout/Friends/Friends";
@@ -19,7 +18,6 @@ const Page: React.FC = () => {
   const { data: user, error, isLoading } = useGetUserByIdQuery(id, {
     skip: !id, // This skips the query if id is not set
   });
- 
   useEffect(() => {
     if(!token.token)
     {
@@ -31,7 +29,6 @@ const Page: React.FC = () => {
       setId(decoded._id)
     }
   }, [token]);
-
   return (
     <div className="flex flex-row h-screen overflow-x-auto">
       <div className="flex flex-row min-w-[1200px] w-full">

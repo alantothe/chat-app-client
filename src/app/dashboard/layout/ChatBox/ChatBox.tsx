@@ -4,33 +4,9 @@ import sendMessage from "@/api/post/sendMessage";
 import React, { useEffect, useState } from "react";
 import Avatar from "@/hooks/Avatar";
 import Message from "@/hooks/Message";
+import { User, MessageType, Response, MessageBody } from "../../../../../types"
 
-interface User {
-  _id: string
-  firstName: string;
-  lastName: string;
-  avatar: string;
-  id: string;
-}
-interface Message {
-  _id: string
-  conversationId: string 
-  senderId: User 
-  message: string
-  img: string[] 
-  timestamp: string; 
-  __v: number;
-}
-interface Response {
-  members: User[] 
-  messages: Message[]
-}
-interface MessageBody {
-  recipientIds: string[] | null
-  senderId: string | null
-  message: string
-  img:string[] | null
-}
+
 const ChatBox: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer);
   const { _id, openConversation } = userData;
@@ -123,7 +99,7 @@ const ChatBox: React.FC = () => {
       )}
     </div>
   );
-  const renderMessages = (messages: Message[] | null) => (
+  const renderMessages = (messages: MessageType[] | null) => (
     <div className="overflow-y-auto flex-grow flex flex-col p-4">
       {messages ? (
         messages.map((message) => (
