@@ -1,10 +1,9 @@
 import { io } from "socket.io-client";
 import apiConfig from "@/api/apiconfig";
 
-const { socketURL, localURL } = apiConfig;
-
-const socket = io(`${localURL}`, {
-  reconnectionAttempts: 5,
+console.log(apiConfig.localURL)
+const socket = io(`http://localhost:4001`, {
+  reconnectionAttempts: 1,
 });
 
 socket.on("connect", () => {

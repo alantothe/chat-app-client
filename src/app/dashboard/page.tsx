@@ -29,9 +29,15 @@ const Page: React.FC = () => {
     {
       const decoded = jwtDecode<Token>(token.token);
       setId(decoded._id)
-      socket.emit( "set-user", decoded._id)
+      
     }
   }, [token]);
+
+  useEffect(() => {
+    if(id){
+      socket.emit( "set-user", id)
+    }
+  },[id])
   return (
     <div className="flex flex-row h-screen overflow-x-auto">
       <div className="flex flex-row min-w-[1200px] w-full">
