@@ -54,8 +54,7 @@ export interface Chat {
 }
 
 
-//ChatBox
-
+//ChatBox.tsx
 export interface User {
   _id: string
   firstName: string;
@@ -64,8 +63,7 @@ export interface User {
   id: string;
 }
 
-//ChatBox 
-
+//ChatBox.tsx
 export interface MessageType {
   _id: string
   conversationId: string 
@@ -76,18 +74,27 @@ export interface MessageType {
   __v: number;
 }
 
-//ChatBox 
-
+//ChatBox.tsx
 export interface Response {
   members: User[] 
   messages: MessageType[]
 }
 
-//ChatBox 
-
+//ChatBox.tsx
 export interface MessageBody {
   recipientIds: string[] | null
   senderId: string | null
   message: string
   img:string[] | null
+}
+
+//Friends.tsx
+export interface Friend {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  bio?: string;
+  email?: string;
+  backgroundImage?: string;
 }

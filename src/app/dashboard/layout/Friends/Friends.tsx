@@ -2,16 +2,9 @@ import { useAppSelector } from "@/redux/hooks";
 import React, { useEffect, useState } from "react";
 import getLimitedUser from "@/api/get/getLimitedUser";
 import Avatar from "@/hooks/Avatar";
+import { Friend } from "../../../../../types";
 
-interface Friend {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  avatar: string;
-  bio?: string;
-  email?: string;
-  backgroundImage?: string;
-}
+
 
 const Friends: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer);

@@ -6,7 +6,6 @@ import Avatar from "@/hooks/Avatar";
 import Message from "@/hooks/Message";
 import { User, MessageType, Response, MessageBody } from "../../../../../types"
 
-
 const ChatBox: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer);
   const { _id, openConversation } = userData;
