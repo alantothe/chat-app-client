@@ -16,7 +16,9 @@ const Page: React.FC = () => {
   const router = useRouter()
   const [id , setId] = useState<string>('')
   const token = useAppSelector((state) => state.tokenReducer);
-  const { data: user, error, isLoading } = useGetUserByIdQuery(id);
+  const { data: user, error, isLoading } = useGetUserByIdQuery(id, {
+    skip: !id, // This skips the query if id is not set
+  });
  
   useEffect(() => {
     if(!token.token)

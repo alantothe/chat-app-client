@@ -1,5 +1,5 @@
 export interface UserState {
-  _id: string | null;
+  _id: string | null
   firstName: string | null;
   lastName: string | null;
   avatar: string | null;
