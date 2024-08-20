@@ -4,8 +4,6 @@ import getLimitedUser from "@/api/get/getLimitedUser";
 import Avatar from "@/hooks/Avatar";
 import { Friend } from "../../../../../types";
 
-
-
 const Friends: React.FC = () => {
   const userData = useAppSelector((state) => state.userReducer);
   const [friendsData, setFriendsData] = useState<Friend[]>([]);

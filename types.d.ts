@@ -1,3 +1,5 @@
+
+//Redux Initial State
 export interface UserState {
   _id: string | null
   firstName: string | null;
@@ -13,13 +15,15 @@ export interface UserState {
   activeGroupConversations: string[];
   openConversation: string | null;
 }
-
+//Decoded Token(Dashboard Page)
 export interface Token {
   avatar: string;
   exp: number;
   iat: number;
   _id: string;
 }
+
+//MainSideBar.tsx
 export interface Conversation {
   detailedLastMessageFrom: {
     _id: string;
@@ -28,7 +32,6 @@ export interface Conversation {
     avatar: string;
     id: string;
   };
-
   _id: string | null;
   members: string[];
   lastMessage: string | null;
@@ -37,21 +40,25 @@ export interface Conversation {
     [key: string]: number;
   };
 }
+//tokenSlice.ts
 export interface LoginResponse {
   token: string | null;
 }
+//userApi.ts
 export interface onOpenChatResponse{
   message: string | null
   data: string | null
 }
-interface MainSideBarProps {
-  onOpenChat: () => void;
-}
-
+//reset later?
+// interface MainSideBarProps {
+//   onOpenChat: () => void;
+// }
+//MainSideBar.tsx
 export interface Chat {
   conversationId: string | null | "";
-  _id: string | null | "";
+  _id: string | null ;
 }
+
 
 
 //ChatBox.tsx

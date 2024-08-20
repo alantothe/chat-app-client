@@ -1,22 +1,11 @@
 import { CSSProperties, useEffect, useState } from "react";
 import getConversations from "@/api/get/getConversations";
 import getConversationsGroup from "@/api/get/getGroupConversations";
-import type { Conversation, UserState } from "../../../../../types";
+import type { Conversation, Chat } from "../../../../../types";
 import Avatar from "@/hooks/Avatar";
 import { useAppSelector } from "@/redux/hooks";
 import { useOpenChatMutation } from "@/redux/features/user/userApi";
 import SyncLoader from "react-spinners/SyncLoader";
-
-interface Chat {
-  conversationId: string | null;
-  _id: string | null;
-}
-
-const override: CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "grey",
-};
 
 const MainSideBar: React.FC = () => {
   const [openChat, setOpenChat] = useState<Chat>({ conversationId: null, _id: null });
@@ -136,7 +125,7 @@ const MainSideBar: React.FC = () => {
           </button>
         </div>
       </div>
-      {userData? (<div className="flex-col">
+      {userData._id? (<div className="flex-col">
         {display === "Direct Messages" && renderConversations(conversations)}
         {display === "Group Messages" &&
           renderConversations(groupConversations)}
@@ -144,7 +133,6 @@ const MainSideBar: React.FC = () => {
         <div>
       <SyncLoader
       color={"#808080"}
-      cssOverride={override}
       size={15}
       aria-label="Loading Spinner"
       data-testid="loader"
