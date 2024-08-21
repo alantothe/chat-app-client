@@ -105,3 +105,17 @@ export interface Friend {
   email?: string;
   backgroundImage?: string;
 }
+
+// post/sendMessage.ts
+
+export interface SendMessageResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface MessageBody {
+  recipientIds: string[] | null
+  senderId: string | null
+  message: string
+  img:string[] | null
+}

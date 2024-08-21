@@ -28,9 +28,7 @@ export default function Login() {
       router.push('/dashboard')
     }
   }, [token]);
-
   
-
   return (
     <main>
       <div className="bg-black min-h-screen flex items-center justify-center">

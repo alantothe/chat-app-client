@@ -1,18 +1,7 @@
 import apiConfig from "../apiconfig";
+import { SendMessageResponse, MessageBody } from "../../../types";
 
-// http://localhost:4001/api/message/send
 
-interface SendMessageResponse {
-    success: boolean;
-    message: string;
-  }
-
-  interface MessageBody {
-    recipientIds: string[] | null
-    senderId: string | null
-    message: string
-    img:string[] | null
-  }
 export default async function sendMessage(
     messageBody: MessageBody
   ): Promise<SendMessageResponse> {
