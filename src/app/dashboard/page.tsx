@@ -38,44 +38,17 @@ const Page: React.FC = () => {
       socket.emit( "set-user", id)
     }
   },[id])
+
+  if(!token.token){
+    return null
+  }
   return (
     <div className="flex flex-row h-screen overflow-x-auto">
       <div className="flex flex-row min-w-[1200px] w-full">
-        <div
-          style={{
-            width: "6%",
-          }}
-          className="h-full flex-shrink-0"
-        >
-          <SideBar />
-        </div>
-
-        <div
-          className="border-r border-opacity-25 border-white h-full flex-shrink-0"
-          style={{
-            width: "22%",
-          }}
-        >
-          <MainSideBar  />
-        </div>
-
-        <div
-          className="border-l border-r border-opacity-25 border-white h-full flex-shrink-0"
-          style={{
-            width: "60%",
-          }}
-        >
-          <ChatBox />
-        </div>
-
-        <div
-          className="border-l border-opacity-25 border-white h-full flex-shrink-0"
-          style={{
-            width: "12%",
-          }}
-        >
-          <Friends />
-        </div>
+        <SideBarContainer/>
+        <MainSideBarContainer/>
+        <ChatBoxContainer/>
+        <FriendsContainer/>
       </div>
     </div>
   );
@@ -83,3 +56,54 @@ const Page: React.FC = () => {
 
 export default Page;
 
+
+const SideBarContainer: React.FC = () => {
+  return (
+    <div
+    style={{
+      width: "6%",
+    }}
+    className="h-full flex-shrink-0"
+  >
+    <SideBar />
+  </div>
+  )
+
+}
+const ChatBoxContainer: React.FC = () => {
+  return(
+    <div
+    className="border-l border-r border-opacity-25 border-white h-full flex-shrink-0"
+    style={{
+      width: "60%",
+    }}
+  >
+    <ChatBox />
+  </div>
+
+  )
+}
+const FriendsContainer: React.FC = () => {
+  return(
+    <div
+    className="border-l border-opacity-25 border-white h-full flex-shrink-0"
+    style={{
+      width: "12%",
+    }}
+  >
+    <Friends />
+  </div>
+  )
+}
+const MainSideBarContainer: React.FC = () => {
+  return(
+    <div
+    className="border-r border-opacity-25 border-white h-full flex-shrink-0"
+    style={{
+      width: "22%",
+    }}
+  >
+    <MainSideBar  />
+  </div>
+  )
+}
